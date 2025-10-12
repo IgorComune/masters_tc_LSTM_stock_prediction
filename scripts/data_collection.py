@@ -192,6 +192,6 @@ class B3DataDownloader:
         return data
 
 # execution example
-# if __name__ == "__main__":
-#     downloader = B3DataDownloader()
-#     df = downloader.run()
+if __name__ == "__main__":
+    downloader = B3DataDownloader()
+    df = downloader.run()
