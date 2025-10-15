@@ -1,20 +1,27 @@
 {
     "model_info": {
         "architecture": "LSTM",
-        "input_size": 5,
+        "input_size": 7,
         "hidden_size": 50,
         "num_layers": 2,
         "output_size": 1,
-        "dropout": 0.2,
-        "total_parameters": 33101,
-        "trainable_parameters": 33101
+        "dropout": 0.3,
+        "total_parameters": 33501,
+        "trainable_parameters": 33501
     },
-    "save_date": "2025-10-15 00:07:26",
+    "save_date": "2025-10-15 11:47:13",
     "pytorch_version": "2.9.0+cu126",
     "lookback": 60,
     "batch_size": 32,
-    "learning_rate": 0.001,
-    "best_val_loss": Infinity,
-    "epochs_trained": 15,
-    "training_time_minutes": 0.18210550944010417
+    "learning_rate": 0.01,
+    "hidden_size": 50,
+    "num_layers": 2,
+    "dropout": 0.3,
+    "best_val_loss": 0.0002060375672074095,
+    "final_train_loss": 0.00023380105522711404,
+    "epochs_trained": 34,
+    "training_time_minutes": 0.35,
+    "train_samples": 4490,
+    "val_samples": 962,
+    "test_samples": 963
 }
