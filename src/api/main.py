@@ -25,17 +25,17 @@ app.add_middleware(
 app.add_middleware(PrometheusMiddleware)
 app.mount('/metrics', metrics_app)
 
-# Determine input_size from CSV
+# Determine input_size from CSV, excluding only 'Close'
 csv_path = "data/processed/df.csv"
 df = pd.read_csv(csv_path)
-input_size = df.drop(columns=['Date','Close']).shape[1]  # Number of features excluding 'Close'
+input_size = df.drop(columns=['Close']).shape[1]  # Include 'Date' (5 features)
 
 # Initialize Predictor with correct parameters
 predictor = Predictor(
     model_path=r"models/final_model.pth",
     scaler_dir=r"models/scalers",
     window_size=30,  # Matches training
-    input_size=input_size,  # Matches number of features
+    input_size=input_size,  # Matches 5 features
     device="cuda" if torch.cuda.is_available() else "cpu"
 )
 
