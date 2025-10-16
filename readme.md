@@ -7,3 +7,7 @@ pip install numpy pandas matplotlib seaborn scikit-learn yfinance fastapi uvicor
 
 tickers list
 https://www.dadosdemercado.com.br/acoes
+
+
+
+uvicorn src.api.main:app --reload --port 8000

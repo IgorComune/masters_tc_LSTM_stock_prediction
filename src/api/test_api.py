@@ -1,20 +1,24 @@
 from fastapi.testclient import TestClient
 from src.api.main import app
+import pandas as pd
 
 client = TestClient(app)
+
 def test_health():
     r = client.get('/health')
     assert r.status_code == 200
     assert r.json()['status'] == 'ok'
 
 def test_predict_basic():
-# dados fake — o modelo deve estar carregado; se não estiver, adapta-se
-    payload = {"sequence": [0.1] * 50}
+    # Load CSV to get realistic sequence
+    df = pd.read_csv('data/processed/df.csv')
+    sequence = df.drop(columns=['Close']).tail(30).values.tolist()  # Last 30 rows, excluding 'Close'
+    payload = {"sequence": sequence}
+    
     r = client.post('/predict', json=payload)
-    # Se o modelo não for carregado durante CI/dev, permita que 500 seja
-
-    assert r.status_code in (200, 500)
-    if r.status_code == 200:
-        body = r.json()
-        assert 'probabilities' in body
-        assert 'predicted_class' in body
+    assert r.status_code == 200, f"Expected 200, got {r.status_code}: {r.text}"
+    
+    body = r.json()
+    assert 'prediction' in body, "Response missing 'prediction' key"
+    assert isinstance(body['prediction'], float), "Prediction should be a float"
+    assert 'details' in body, "Response missing 'details' key"

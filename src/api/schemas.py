@@ -1,11 +1,9 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Dict, Any
 
 class PredictRequest(BaseModel):
-    # sequência de entrada — lista de floats (ajuste se for batch)
-    sequence: List[float]
+    sequence: List[List[float]]  # 2D sequence: list of lists with input_size elements each
 
 class PredictResponse(BaseModel):
-    probabilities: List[float]
-    predicted_class: Optional[int]
-    details: Optional[dict]
+    prediction: float  # Scalar prediction for regression
+    details: Dict[str, Any]  # Optional details
