@@ -1,6 +1,6 @@
 # 📈 LSTM Stock Price Prediction
 
-[![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-31011/)
+[![Python 3.12](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-31011/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)](https://fastapi.tiangolo.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -42,25 +42,9 @@ This project implements a Deep Learning model based on LSTM to predict future pr
 ## 🔧 Requirements
 
 ### System
-- **Python:** 3.10.11
+- **Python:** 3.12
 - **GPU:** NVIDIA CUDA compatible (optional, but recommended)
-- **Operating System:** Windows 10/11, Linux, or macOS
-
-### Main Dependencies
-```
-torch>=2.0.0
-fastapi>=0.104.0
-uvicorn>=0.24.0
-pandas>=2.0.0
-numpy>=1.24.0
-scikit-learn>=1.3.0
-yfinance>=0.2.28
-pydantic>=2.4.0
-joblib>=1.3.0
-matplotlib>=3.7.0
-seaborn>=0.12.0
-```
-
+- **Operating System:** recommended: Ubuntu Linux
 ---
 
 ## 🚀 Installation
@@ -95,7 +79,11 @@ python.exe -m pip install --upgrade pip
 
 ### 5. Install Dependencies
 ```bash
-pip install -r requirements.txt
+pip3 install yfinance
+pip3 install pandas
+pip3 install -U scikit-learn
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
+pip3 install mlflow
 ```
 
 ---
@@ -312,15 +300,16 @@ uvicorn src.api.main:app --reload --port 8000
 ### Docker
 
 ```dockerfile
-FROM python:3.10-slim
-
+FROM python:3.12-slim
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
+RUN pip install yfinance
+RUN pip install pandas
+RUN pip3 install -U scikit-learn
+RUN pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
+RUN pip install mlflow
 COPY . .
-
 EXPOSE 8000
+HEALTHCHECK CMD curl --fail http://localhost:8000/health || exit 1
 CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 

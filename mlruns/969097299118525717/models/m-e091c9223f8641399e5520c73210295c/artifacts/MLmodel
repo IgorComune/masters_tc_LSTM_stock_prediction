@@ -1,0 +1,23 @@
+artifact_path: file:///home/comune/Documentos/GitHub/masters_tc_LSTM_stock_prediction/mlruns/969097299118525717/models/m-e091c9223f8641399e5520c73210295c/artifacts
+flavors:
+  python_function:
+    config:
+      device: null
+    data: data
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.pytorch
+    pickle_module_name: mlflow.pytorch.pickle_module
+    python_version: 3.12.3
+  pytorch:
+    code: null
+    model_data: data
+    pytorch_version: 2.9.0+cu130
+mlflow_version: 3.5.1
+model_id: m-e091c9223f8641399e5520c73210295c
+model_size_bytes: 25375
+model_uuid: m-e091c9223f8641399e5520c73210295c
+prompts: null
+run_id: 2deac736683242f484734df71490b42d
+utc_time_created: '2025-11-05 17:48:33.633129'

@@ -1,7 +1,10 @@
-FROM python:3.10-slim
+FROM python:3.12-slim
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install yfinance
+RUN pip install pandas
+RUN pip3 install -U scikit-learn
+RUN pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
+RUN pip install mlflow
 COPY . .
 EXPOSE 8000
 HEALTHCHECK CMD curl --fail http://localhost:8000/health || exit 1

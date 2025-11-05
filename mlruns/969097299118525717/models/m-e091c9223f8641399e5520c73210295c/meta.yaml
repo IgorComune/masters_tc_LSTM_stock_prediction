@@ -1,0 +1,10 @@
+artifact_location: file:///home/comune/Documentos/GitHub/masters_tc_LSTM_stock_prediction/mlruns/969097299118525717/models/m-e091c9223f8641399e5520c73210295c/artifacts
+creation_timestamp: 1762364913619
+experiment_id: '969097299118525717'
+last_updated_timestamp: 1762364916091
+model_id: m-e091c9223f8641399e5520c73210295c
+model_type: null
+name: model
+source_run_id: 2deac736683242f484734df71490b42d
+status: 2
+status_message: null

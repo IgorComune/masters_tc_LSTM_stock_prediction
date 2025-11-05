@@ -111,7 +111,8 @@ class LSTMEvaluator:
 
     def run(self, test_csv_path: str, target_column: str = 'Close') -> dict:
         df = pd.read_csv(test_csv_path)
-        feature_columns = [col for col in df.columns if col != target_column]
+        # feature_columns = [col for col in df.columns if col != target_column]
+        feature_columns = [col for col in df.columns if col not in ['Date', target_column]]
         X_raw, y_raw = self.load_test_data(test_csv_path, feature_columns, target_column)
 
         X_scaled = self.scaler_x.transform(X_raw)
@@ -136,7 +137,7 @@ class LSTMEvaluator:
 # Example usage (commented)
 # --------------------------
 evaluator = LSTMEvaluator(
-    model_path='./models/checkpoints/best_checkpoint.pth',
+    model_path='./models/final_model.pth',
     scaler_dir='./models/scalers',
     window_size=30,
     device='cuda'
