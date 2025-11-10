@@ -4,7 +4,8 @@ RUN pip install yfinance
 RUN pip install pandas
 RUN pip3 install -U scikit-learn
 RUN pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
-RUN pip install mlflow
+RUN pip3 install mlflow
+RUN pip3 install prometheus-client
 COPY . .
 EXPOSE 8000
 HEALTHCHECK CMD curl --fail http://localhost:8000/health || exit 1

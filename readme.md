@@ -44,7 +44,7 @@ This project implements a Deep Learning model based on LSTM to predict future pr
 ### System
 - **Python:** 3.12
 - **GPU:** NVIDIA CUDA compatible (optional, but recommended)
-- **Operating System:** recommended: Ubuntu Linux
+- **Operating System:** Linux Ubuntu (recommended)
 ---
 
 ## 🚀 Installation
@@ -84,6 +84,7 @@ pip3 install pandas
 pip3 install -U scikit-learn
 pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
 pip3 install mlflow
+pip3 install prometheus-client
 ```
 
 ---
@@ -132,7 +133,6 @@ masters_tc_LSTM_stock_prediction/
 │       └── model_evaluation.py    # Model evaluation
 │
 ├── infer.py                       # CLI inference script
-├── requirements.txt               # Python dependencies
 ├── .gitignore                     # Ignored files
 ├── .gitattributes                 # Git configuration
 ├── LICENSE                        # MIT License
@@ -263,10 +263,10 @@ Results on test set:
 
 | Metric | Value | Description |
 |---------|-------|-----------|
-| **MAE** | $1.23 | Mean Absolute Error |
-| **RMSE** | $1.89 | Root Mean Squared Error |
-| **MAPE** | 3.45% | Mean Absolute Percentage Error |
-| **R²** | 0.87 | Coefficient of Determination |
+| **MAE** | $0.18 | Mean Absolute Error |
+| **RMSE** | $0.11 | Root Mean Squared Error |
+| **MAPE** | 5.10% | Mean Absolute Percentage Error |
+| **R²** | 0.98 | Coefficient of Determination |
 
 **Interpretation:**
 - ✅ **Low MAE:** Accurate predictions
