@@ -1,0 +1,14 @@
+artifact_uri: file:///home/comune/Documentos/GitHub/masters_tc_LSTM_stock_prediction/mlruns/969097299118525717/c3636620163b43d6bd26562799600777/artifacts
+end_time: 1762824502148
+entry_point_name: ''
+experiment_id: '969097299118525717'
+lifecycle_stage: active
+run_id: c3636620163b43d6bd26562799600777
+run_name: rogue-wasp-366
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762824502131
+status: 4
+tags: []
+user_id: comune

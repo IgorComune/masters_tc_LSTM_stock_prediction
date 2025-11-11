@@ -28,7 +28,7 @@ app.mount('/metrics', metrics_app)
 # Determine input_size from CSV, excluding only 'Close'
 csv_path = "data/processed/df.csv"
 df = pd.read_csv(csv_path)
-input_size = df.drop(columns=['Close']).shape[1]  # Include 'Date' (5 features)
+input_size = df.drop(columns=['Close', 'Date']).shape[1]  # Include 'Date' (5 features)
 
 # Initialize Predictor with correct parameters
 predictor = Predictor(

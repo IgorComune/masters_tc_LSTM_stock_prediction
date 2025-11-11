@@ -24,7 +24,7 @@ class LSTMModel(nn.Module):
     LSTM Neural Network for time series prediction with stronger regularization
     """
     def __init__(self, 
-                 input_size=5, 
+                 input_size=4, 
                  hidden_size=30, 
                  num_layers=1, 
                  output_size=1, 

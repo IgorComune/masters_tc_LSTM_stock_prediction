@@ -1,0 +1,24 @@
+{
+    "model_info": {
+        "architecture": "LSTM",
+        "input_size": 4,
+        "hidden_size": 30,
+        "num_layers": 1,
+        "output_size": 1,
+        "dropout": 0.35,
+        "total_parameters": 5121,
+        "trainable_parameters": 5121
+    },
+    "save_date": "2025-11-10 22:48:30",
+    "pytorch_version": "2.9.0+cu130",
+    "original_data_path": "data/processed/df.csv",
+    "window_size": 30,
+    "batch_size": 64,
+    "num_epochs_ran": 25,
+    "training_date": "2025-11-10 22:48:30",
+    "input_size": 4,
+    "hidden_size": 30,
+    "num_layers": 1,
+    "output_size": 1,
+    "dropout": 0.35
+}

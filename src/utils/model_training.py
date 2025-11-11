@@ -92,16 +92,17 @@ class TimeSeriesDataset(Dataset):
         return torch.FloatTensor(x_seq), torch.FloatTensor(y_target)
     
 def prepare_data(df, window_size, train_ratio, val_ratio, test_ratio, scaler_x=None, scaler_y=None):
-    """Recebe dataframe, retorna dataloaders, scalers e shapes."""
-    # Garantir ordenação temporal
     df = df.copy()
+    FEATURE_COLUMNS = ['Open', 'High', 'Low', 'Volume']
     if 'Close' not in df.columns:
         raise ValueError("Coluna 'Close' não encontrada no csv")
-    # Assumindo que há uma coluna 'Date' que é não numérica
-    drop_columns = ['Close']
-    if 'Date' in df.columns:
-        drop_columns.append('Date')
-    X_df = df.drop(columns=drop_columns)
+
+    # Use FEATURE_COLUMNS explicitamente; valida se todas existem
+    missing = [c for c in FEATURE_COLUMNS if c not in df.columns]
+    if missing:
+        raise ValueError(f"As seguintes feature columns não existem no CSV: {missing}")
+
+    X_df = df[FEATURE_COLUMNS]  # aqui garantimos a ordem
     y_df = df[['Close']]
     # Convert to numpy
     X = X_df.values.astype(float)
@@ -135,7 +136,9 @@ def prepare_data(df, window_size, train_ratio, val_ratio, test_ratio, scaler_x=N
     train_dataset = TimeSeriesDataset(X_train, y_train, window_size)
     val_dataset = TimeSeriesDataset(X_val, y_val, window_size)
     test_dataset = TimeSeriesDataset(X_test, y_test, window_size)
-    return train_dataset, val_dataset, test_dataset, scaler_x, scaler_y
+    return train_dataset, val_dataset, test_dataset, scaler_x, scaler_y, FEATURE_COLUMNS
+
+
 def build_dataloaders(train_dataset, val_dataset, test_dataset, batch_size):
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, drop_last=False)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, drop_last=False)
@@ -218,10 +221,12 @@ def main(
         df = pd.read_csv(original_data_path)
         print(f"CSV carregado. Tamanho: {df.shape}")
         # --- prepare datasets
-        train_dataset, val_dataset, test_dataset, scaler_x, scaler_y = prepare_data(
+        train_dataset, val_dataset, test_dataset, scaler_x, scaler_y, feature_names = prepare_data(
             df, window_size, train_ratio, val_ratio, test_ratio
         )
-        input_size = df.drop(columns=['Close']).shape[1] - 1 if 'Date' in df.columns else df.drop(columns=['Close']).shape[1]
+
+        input_size = len(['Open', 'High', 'Low', 'Volume'])
+        print(input_size)
         train_loader, val_loader, test_loader = build_dataloaders(train_dataset, val_dataset, test_dataset, batch_size)
         print(f"Train batches: {len(train_loader)} | Val batches: {len(val_loader)} | Test batches: {len(test_loader)}")
         # --- model

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/comune/Documentos/GitHub/masters_tc_LSTM_stock_prediction/mlruns/969097299118525717/7fda4c3a86b54a478f91338bb986a268/artifacts
+end_time: 1762825303659
+entry_point_name: ''
+experiment_id: '969097299118525717'
+lifecycle_stage: active
+run_id: 7fda4c3a86b54a478f91338bb986a268
+run_name: dapper-ant-27
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762825295493
+status: 3
+tags: []
+user_id: comune

@@ -34,8 +34,7 @@ class SequenceSamplerSimple:
 
     def _load_and_prep(self) -> pd.DataFrame:
         df = pd.read_csv(self.csv_path).reset_index(drop=True)
-        df['Date_numeric'] = range(len(df))
-        required = {'Date_numeric', 'Open', 'High', 'Low', 'Volume', 'Close'}
+        required = {'Open', 'High', 'Low', 'Volume', 'Close'}
         if not required.issubset(set(df.columns)):
             missing = required - set(df.columns)
             raise ValueError(f"Colunas faltando no CSV: {missing}")
@@ -64,19 +63,18 @@ class SequenceSamplerSimple:
             idx.sort()
             window = df.iloc[idx].copy()
 
-        feature_cols = ['Date_numeric', 'Open', 'High', 'Low', 'Volume']
+        # ✅ Somente as features usadas no treinamento
+        feature_cols = ['Open', 'High', 'Low', 'Volume']
         sequence = window[feature_cols].values.tolist()
         close_values = window['Close'].values.tolist()
         payload = {"sequence": sequence}
 
-        # logs rápidos (como no seu script original)
-        print(f"Mode: {self.mode} | Seed: {getattr(self.rng, 'bit_generator', None)}")
-        print(f"Sequence length: {len(sequence)} | features/timestep: {len(sequence[0]) if sequence else 0}")
+        # print(f"Mode: {self.mode}")
+        # print(f"Sequence length: {len(sequence)} | features/timestep: {len(sequence[0]) if sequence else 0}")
 
         if dry_run:
             return {'sequence': sequence, 'close_values': close_values, 'payload': payload, 'prediction': None}
 
-        # envia para API e tenta decodificar JSON; se falhar, retorna texto bruto
         try:
             resp = requests.post(self.url, json=payload, timeout=timeout)
             resp.raise_for_status()
@@ -85,22 +83,28 @@ class SequenceSamplerSimple:
             except ValueError:
                 pred = resp.text
         except requests.exceptions.RequestException as e:
-            # devolve o erro na resposta para você lidar — não engulo exceções silenciosamente
-            return {'sequence': sequence, 'close_values': close_values, 'payload': payload, 'prediction': None, 'error': str(e)}
+            return {
+                'sequence': sequence,
+                'close_values': close_values,
+                'payload': payload,
+                'prediction': None,
+                'error': str(e)
+            }
 
         return {'sequence': sequence, 'close_values': close_values, 'payload': payload, 'prediction': pred}
 
 
-INPUT = int(input("Set the Seed number (only integers): "))
+sampler = SequenceSamplerSimple(
+    csv_path='data/processed/df.csv',
+    url='http://127.0.0.1:8000/predict',
+    window_size=30,
+    seed=42,
+    mode='contiguous'
+)
 
-sampler = SequenceSamplerSimple(csv_path='data/processed/df.csv',
-                                url='http://127.0.0.1:8000/predict',
-                                window_size=30,
-                                seed=INPUT,
-                                mode='contiguous')
-
-# apenas checar o payload (não envia)
+# apenas checar o payload
 resultado = sampler.sample_and_send(dry_run=True)
-# enviar de verdade e pegar predição:
+# enviar de verdade
 resultado_real = sampler.sample_and_send(dry_run=False)
-print(resultado_real['prediction'])
+
+print(resultado_real['prediction']['prediction'])

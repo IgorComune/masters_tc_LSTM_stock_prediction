@@ -1,0 +1,14 @@
+artifact_uri: file:///home/comune/Documentos/GitHub/masters_tc_LSTM_stock_prediction/mlruns/969097299118525717/75a8780cab994a70b485e6b30cc58e22/artifacts
+end_time: 1762824525177
+entry_point_name: ''
+experiment_id: '969097299118525717'
+lifecycle_stage: active
+run_id: 75a8780cab994a70b485e6b30cc58e22
+run_name: resilient-doe-602
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762824517058
+status: 3
+tags: []
+user_id: comune
