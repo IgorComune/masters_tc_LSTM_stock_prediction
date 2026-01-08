@@ -64,7 +64,7 @@ python3 -m venv .venv
 
 **Windows:**
 ```bash
-.venv\bin\activate
+.venv\Scripts\activate
 ```
 
 **Linux/macOS:**
@@ -321,7 +321,7 @@ docker run -p 8000:8000 lstm-stock-api
 
 ## 🔍 Monitoring
 
-Access: **http://localhost:8000/monitoring/metrics**
+Access: **http://localhost:8000/metrics**
 
 ---
 
