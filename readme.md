@@ -51,20 +51,20 @@ This project implements a Deep Learning model based on LSTM to predict future pr
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/masters_tc_LSTM_stock_prediction.git
+git clone https://github.com/IgorComune/masters_tc_LSTM_stock_prediction.git
 cd masters_tc_LSTM_stock_prediction
 ```
 
 ### 2. Create Virtual Environment
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 ```
 
 ### 3. Activate Virtual Environment
 
 **Windows:**
 ```bash
-.venv\Scripts\activate
+.venv\bin\activate
 ```
 
 **Linux/macOS:**
@@ -75,6 +75,8 @@ source .venv/bin/activate
 ### 4. Upgrade pip
 ```bash
 python.exe -m pip install --upgrade pip
+or for Linux and MacOS:
+python3 -m pip install --upgrade pip
 ```
 
 ### 5. Install Dependencies
@@ -85,6 +87,7 @@ pip3 install -U scikit-learn
 pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
 pip3 install mlflow
 pip3 install prometheus-client
+pip3 install psutil
 ```
 
 ---
@@ -147,7 +150,7 @@ masters_tc_LSTM_stock_prediction/
 **Data source:** [Yahoo Finance](https://finance.yahoo.com/) via `yfinance`
 **B3 ticker list:** [Dados de Mercado](https://www.dadosdemercado.com.br/acoes)
 ---
-
+### Model Already Included in the repo, no need to retrain.
 ### 2️⃣ Model Training
 
 ```python
@@ -166,7 +169,7 @@ model, history = train_model(
 
 **Or via command line:**
 ```bash
-python src/utils/model_training.py --epochs 150 --batch-size 32
+python src/utils/model_training.py
 ```
 
 ---
@@ -187,6 +190,8 @@ Interactive documentation: **http://localhost:8000/docs**
 
 ```bash
 python infer.py
+or for Linux and MacOS:
+python3 infer.py
 ```
 
 ---
@@ -198,18 +203,11 @@ Check API status
 
 ---
 
-### **GET** `/model/info`
-Returns model information
-
----
-
 ### **POST** `/predict`
 Make future price prediction
 
----
-
-### **POST** `/predict/multi`
-Predict multiple future days
+### **POST** `/reload`
+Reloads the ML Model
 
 ---
 
